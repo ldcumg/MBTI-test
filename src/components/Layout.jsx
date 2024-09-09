@@ -2,20 +2,34 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../zustand/authStore";
+import { getUserProfile } from "../api/auth";
 
 const Layout = ({ children }) => {
   const navigate = useNavigate();
 
-  const { user, logOut } = useAuthStore((state) => state);
+  const { user, saveUserInfo, removeUserInfo } = useAuthStore((state) => state);
 
   useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    const stayLogIn = async () => {
+      const data = await getUserProfile(accessToken).catch((error) => {
+        alert(error.response.data.message);
+        navigate("/login");
+      });
+      if (data?.success) {
+        delete Object.assign(data, { userId: data.id, accessToken }).id;
+        saveUserInfo(data);
+      }
+    };
+
+    accessToken && stayLogIn();
     if (!user) {
       navigate("/");
     }
   }, []);
 
   const handleLogout = () => {
-    logOut();
+    removeUserInfo();
     localStorage.removeItem("accessToken");
   };
 
