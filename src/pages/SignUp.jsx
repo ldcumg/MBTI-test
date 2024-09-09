@@ -7,7 +7,7 @@ const SignUp = () => {
 
   const handleSignup = (formData) => {
     try {
-      const data = register(formData);
+      const { data } = register(formData);
       if (data.success) {
         alert(data.message);
         navigate("/login");

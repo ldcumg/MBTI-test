@@ -1,9 +1,10 @@
 import useAuthStore from "../zustand/authStore";
 import MBTI_DESCRIPTIONS from "../constant/mbtiDescriptions";
+import { useMutateInvalidate } from "../queries/testResultQueries";
 import {
-  useDeleteTestResultsQuery,
-  useUpdateTestResultsQuery,
-} from "../queries/testResultQueries";
+  deleteTestResult,
+  updateTestResultVisibility,
+} from "../api/testResult";
 
 const TestResultItem = ({ result }) => {
   const { user } = useAuthStore((state) => state);
@@ -14,7 +15,7 @@ const TestResultItem = ({ result }) => {
   const description =
     MBTI_DESCRIPTIONS[result.result] || "MBTI 유형 설명을 찾을 수 없습니다.";
 
-  const { mutate: updateMutate } = useUpdateTestResultsQuery();
+  const updateMutate = useMutateInvalidate(updateTestResultVisibility).mutate;
 
   const handleToggleVisibility = async () => {
     try {
@@ -25,14 +26,19 @@ const TestResultItem = ({ result }) => {
     }
   };
 
-  const { mutate: deleteMutate } = useDeleteTestResultsQuery();
+  const deleteMutate = useMutateInvalidate(deleteTestResult).mutate;
 
   const handleDelete = () => {
-    try {
-      deleteMutate(result.id);
-    } catch (error) {
-      console.error("Delete failed:", error);
-      alert("Delete failed. Please try again.");
+    if (confirm("삭제하시겠습니까?")) {
+      try {
+        deleteMutate(result.id);
+        alert("삭제되었습니다.");
+      } catch (error) {
+        console.error("Delete failed:", error);
+        alert("Delete failed. Please try again.");
+      }
+    } else {
+      alert("삭제를 취소하였습니다.");
     }
   };
 

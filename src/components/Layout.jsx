@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     const stayLogIn = async () => {
-      const data = await getUserProfile(accessToken).catch((error) => {
+      const { data } = await getUserProfile(accessToken).catch((error) => {
         alert(error.response.data.message);
         navigate("/login");
       });

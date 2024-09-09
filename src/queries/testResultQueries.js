@@ -1,9 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  deleteTestResult,
-  getTestResults,
-  updateTestResultVisibility,
-} from "../api/testResult";
+import { getTestResults } from "../api/testResult";
 
 export const queryKeys = {
   boardController: {
@@ -13,27 +9,17 @@ export const queryKeys = {
 
 export const useGetTestResultsQuery = () => {
   return useQuery({
-    queryKey: queryKeys.boardController.testResults,
+    queryKey: queryKeys.boardController.testResults(),
     queryFn: getTestResults,
   });
 };
 
-export const useDeleteTestResultsQuery = () => {
+export const useMutateInvalidate = (Fn) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: deleteTestResult,
+    mutationFn: Fn,
     onSuccess: () => {
-      queryClient.invalidateQueries(["testResults"]);
-    },
-  });
-};
-
-export const useUpdateTestResultsQuery = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: updateTestResultVisibility,
-    onSuccess: () => {
-      queryClient.invalidateQueries(["testResults"]);
+      queryClient.invalidateQueries(queryKeys.boardController.testResults());
     },
   });
 };

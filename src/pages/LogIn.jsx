@@ -4,15 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuthStore from "../zustand/authStore";
 
 const LogIn = () => {
-  const { saveUserInfo } = useAuthStore((state) => state);
-
   const navigate = useNavigate();
+  const { saveUserInfo } = useAuthStore((state) => state);
 
   const handleLogin = async (formData) => {
     try {
-      const data = await login(formData);
+      const { data } = await login(formData);
       if (data.success) {
         saveUserInfo(data);
+        localStorage.setItem("accessToken", data.accessToken);
         alert(`${data.nickname}님 환영합니다.`);
         navigate("/");
       }

@@ -13,8 +13,9 @@ const Profile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await updateProfile({ nickname }, user.accessToken);
+    updateProfile({ nickname }, user.accessToken);
     updateUserInfo(nickname);
+    alert(`닉네임이 ${nickname}(으)로 변경되었습니다.`);
     setNickname("");
   };
 
