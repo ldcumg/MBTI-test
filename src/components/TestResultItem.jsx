@@ -1,35 +1,20 @@
 import useAuthStore from "../zustand/authStore";
-import {
-  deleteTestResult,
-  updateTestResultVisibility,
-} from "../api/testResult";
 import MBTI_DESCRIPTIONS from "../constant/mbtiDescriptions";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useDeleteTestResultsQuery,
+  useUpdateTestResultsQuery,
+} from "../queries/testResultQueries";
 
 const TestResultItem = ({ result }) => {
   const { user } = useAuthStore((state) => state);
 
   const isOwner = result.userId === user.userId;
 
-  const queryClient = useQueryClient();
-
-  const { mutate: deleteMutate } = useMutation({
-    mutationFn: deleteTestResult,
-    onSuccess: () => {
-      queryClient.invalidateQueries(["testResults"]);
-    },
-  });
-
-  const { mutate: updateMutate } = useMutation({
-    mutationFn: updateTestResultVisibility,
-    onSuccess: () => {
-      queryClient.invalidateQueries(["testResults"]);
-    },
-  });
-
   const formattedDate = new Date(result.date).toLocaleString();
   const description =
     MBTI_DESCRIPTIONS[result.result] || "MBTI 유형 설명을 찾을 수 없습니다.";
+
+  const { mutate: updateMutate } = useUpdateTestResultsQuery();
 
   const handleToggleVisibility = async () => {
     try {
@@ -39,6 +24,8 @@ const TestResultItem = ({ result }) => {
       alert("Visibility toggle failed. Please try again.");
     }
   };
+
+  const { mutate: deleteMutate } = useDeleteTestResultsQuery();
 
   const handleDelete = () => {
     try {

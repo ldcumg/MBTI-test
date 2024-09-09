@@ -1,21 +1,13 @@
 import useAuthStore from "../zustand/authStore";
-import { getTestResults } from "../api/testResult";
 import TestResultItem from "./TestResultItem";
-import { useQuery } from "@tanstack/react-query";
+import { useGetTestResultsQuery } from "../queries/testResultQueries";
 
 const TestResultList = () => {
   const { user } = useAuthStore((state) => state);
 
-  const {
-    data: results,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["testResults"],
-    queryFn: getTestResults,
-  });
+  const { data: results, isPending, isError } = useGetTestResultsQuery();
 
-  if (isLoading) {
+  if (isPending) {
     return <div>로딩 중</div>;
   }
 
