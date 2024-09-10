@@ -20,8 +20,9 @@ const AuthForm = ({ mode, onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col w-4/5">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-5 w-[800px]">
       <input
+        className="h-[50px] rounded-md"
         type="text"
         name="id"
         value={formData.id}
@@ -30,6 +31,7 @@ const AuthForm = ({ mode, onSubmit }) => {
         required
       />
       <input
+        className="h-[50px] rounded-md"
         type="password"
         name="password"
         value={formData.password}
@@ -39,16 +41,18 @@ const AuthForm = ({ mode, onSubmit }) => {
       />
       {mode === "signup" && (
         <input
+        className="h-[50px] p-4 border border-gray-300 rounded-md"
           type="text"
           name="nickname"
           value={formData.nickname}
           onChange={handleChange}
           placeholder="닉네임"
           required
-          className="w-full p-4 border border-gray-300 rounded-lg"
         />
       )}
-      <button className="bg-gray-500 rounded-md">{mode === "login" ? "로그인" : "회원가입"}</button>
+      <button className="bg-gray-500 rounded-md h-[50px]">
+        {mode === "login" ? "로그인" : "회원가입"}
+      </button>
     </form>
   );
 };

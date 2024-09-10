@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { updateProfile } from "../api/auth";
 import useAuthStore from "../zustand/authStore";
+import { useGetTestResultsQuery } from "../queries/testResultQueries";
+import { updateTestResultNickname } from "../api/testResult";
 
 const Profile = () => {
   const { user, updateUserInfo } = useAuthStore((state) => state);
@@ -15,8 +17,18 @@ const Profile = () => {
     e.preventDefault();
     updateProfile({ nickname }, user.accessToken);
     updateUserInfo(nickname);
+    preResultsUpdate();
     alert(`닉네임이 ${nickname}(으)로 변경되었습니다.`);
     setNickname("");
+  };
+
+  const { data: results } = useGetTestResultsQuery();
+  const preResultsUpdate = () => {
+    let preResults = [];
+    results
+      .filter((result) => result.userId === user.userId)
+      .forEach((result) => preResults.push(result.id));
+    preResults.forEach((id) => updateTestResultNickname(id, nickname));
   };
 
   return (

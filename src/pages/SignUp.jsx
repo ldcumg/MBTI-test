@@ -19,15 +19,13 @@ const SignUp = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
+      <h1>회원가입</h1>
+      <AuthForm mode="signup" onSubmit={handleSignup} />
       <div>
-        <h1>회원가입</h1>
-        <AuthForm mode="signup" onSubmit={handleSignup} />
-        <div>
-          <p>
-            이미 계정이 있으신가요? <Link to="/login">로그인</Link>
-          </p>
-        </div>
+        <p className="flex gap-16 mt-9">
+          이미 계정이 있으신가요? <Link to="/login">로그인</Link>
+        </p>
       </div>
     </div>
   );

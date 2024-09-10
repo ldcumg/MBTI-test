@@ -25,7 +25,7 @@ const LogIn = () => {
     <div className="flex flex-col items-center">
       <h1>로그인</h1>
       <AuthForm mode="login" onSubmit={handleLogin} />
-      <div className="flex gap-16">
+      <div className="flex gap-16 mt-9">
         <p>계정이 없으신가요?</p> <Link to="/signup">회원가입</Link>
       </div>
     </div>

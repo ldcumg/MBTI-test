@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getTestResults } from "../api/testResult";
 
-export const queryKeys = {
+const queryKeys = {
   boardController: {
     testResults: () => ["testResults"],
   },
