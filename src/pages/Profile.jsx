@@ -13,6 +13,7 @@ const Profile = () => {
     setNickname(e.target.value);
   };
 
+  // 닉네임을 변경하는 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
     updateProfile({ nickname }, user.accessToken);
@@ -22,6 +23,7 @@ const Profile = () => {
     setNickname("");
   };
 
+  // 유저가 쓴 게시물 다 불러와서 게시물 id를 배열에 담아 그 배열들의 닉네임 변경하기
   const { data: results } = useGetTestResultsQuery();
   const preResultsUpdate = () => {
     let preResults = [];

@@ -1,12 +1,14 @@
 import { useState } from "react";
 
 const AuthForm = ({ mode, onSubmit }) => {
+  // inputs state 객체 생성
   const [formData, setFormData] = useState({
     id: "",
     password: "",
     nickname: "",
   });
 
+  // inputs 제어 함수
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => {

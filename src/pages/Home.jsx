@@ -4,6 +4,7 @@ import useAuthStore from "../zustand/authStore";
 const Home = () => {
   const { user } = useAuthStore((state) => state);
 
+  // zustand에 user 정보가 있으면 시작하기, 없으면 로그인하기 버튼 표시
   return (
     <div className="flex flex-col items-center gap-5">
       <h1>무료 성격 테스트</h1>

@@ -9,6 +9,7 @@ const Layout = ({ children }) => {
 
   const { user, saveUserInfo, removeUserInfo } = useAuthStore((state) => state);
 
+  // 로컬스토리지에 accessToken이 있으면 유저 정보를 조회해서 zustand의 user에 저장
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     const stayLogIn = async () => {
@@ -17,6 +18,7 @@ const Layout = ({ children }) => {
         navigate("/login");
       });
       if (data?.success) {
+        // data의 id 값을 userId에 할당하고 id 키 삭제하기
         delete Object.assign(data, { userId: data.id, accessToken }).id;
         saveUserInfo(data);
       }
@@ -28,6 +30,7 @@ const Layout = ({ children }) => {
     }
   }, []);
 
+  // 로그아웃 시 zustand의 user null로 바꾸고 로컬스토리지의 accessToken 삭제
   const handleLogout = () => {
     removeUserInfo();
     localStorage.removeItem("accessToken");

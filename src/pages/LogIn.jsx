@@ -7,6 +7,7 @@ const LogIn = () => {
   const navigate = useNavigate();
   const { saveUserInfo } = useAuthStore((state) => state);
 
+  // 로그인이 성공하면 유저정보를 zustand에 저장하고 accessToken을 로컬스토리지에 저장
   const handleLogin = async (formData) => {
     try {
       const { data } = await login(formData);
