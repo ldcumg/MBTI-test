@@ -1,4 +1,5 @@
-# [🔗 MBTI테스트](mbti-test-liard.vercel.app)
+# 배포 주소 
+## [🔗 MBTI테스트](mbti-test-liard.vercel.app)
 
 ## 🗂️ 파일 구조
 ```
