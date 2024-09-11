@@ -8,7 +8,7 @@ const TestResultList = () => {
   const { data: results, isPending, isError } = useGetTestResultsQuery();
 
   if (isPending) {
-    return <div>로딩 중입니다.</div>;
+    return <div>로딩 중입니다...</div>;
   }
 
   if (isError) {
