@@ -1,5 +1,5 @@
 # 배포 주소 
-**[🔗 MBTI테스트](mbti-test-6pd8ko5g9-wonbinlees-projects.vercel.app)**
+**[🔗 MBTI테스트](https://mbti-test-wonbinlees-projects.vercel.app/)**
 
 ## 🗂️ 파일 구조
 ```
